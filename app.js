@@ -6,6 +6,11 @@ const config = require("./config.json");
 const rpc = new Client({ transport: "ipc" });
 // Defines the RPC client.
 
+if(config.change_interval === 0) {
+    throw "The change interval cannot be 0.";
+}
+// Throws an exception if the change interval is 0.
+
 function gameloop() {
     var x = true;
     while(x) {
