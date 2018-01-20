@@ -10,11 +10,9 @@ function gameloop() {
     var x = true;
     while(x) {
         var r = Math.floor(Math.random() * config.game_list.length);
-        if (config.game_list[r] != global.current_game) {
+        if ((config.game_list[r] != global.current_game) || (config.game_list.length === 1)) {
             global.current_game = config.game_list[r];
-            var game = config.game_list[r];
-            game.startTimestamp = Date.now();
-            rpc.setActivity(game);
+            rpc.setActivity(config.game_list[r]);
             log("Changed activity.");
             x = false;
         }
