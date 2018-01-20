@@ -33,5 +33,9 @@ rpc.on('ready', () => {
 });
 // Defines the RPC being ready and starts the loop.
 
-rpc.login(config.application_id).catch(log.error);
-// Logs into Discord.
+if(process.argv[2] != "test") {
+    rpc.login(config.application_id).catch(log.error);
+} else {
+    log("At least before logging into Discord, all seems well!")
+}
+// Logs into Discord if it is not a test.

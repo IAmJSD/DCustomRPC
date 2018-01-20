@@ -4,4 +4,4 @@ node_js:
 before_script:
    - npm i
 script:
-   - node app.js
+   - node app.js test
