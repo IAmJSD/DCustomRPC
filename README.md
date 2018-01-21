@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/JakeMakesStuff/DCustomRPC.svg?branch=master)](https://travis-ci.org/JakeMakesStuff/DCustomRPC)
+![License](https://img.shields.io/github/license/mashape/apistatus.svg)
+![Total Downloads](https://img.shields.io/github/downloads/atom/atom/total.svg)
 
 # DCustomRPC
 DCustomRPC is a custom rich presence client that you (you right there, yes you) can customise. The only recommendation is that you know JSON.
