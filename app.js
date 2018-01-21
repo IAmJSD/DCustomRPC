@@ -36,6 +36,6 @@ rpc.on('ready', () => {
 if(process.argv[2] != "test") {
     rpc.login(config.application_id).catch(log.error);
 } else {
-    log("At least before logging into Discord, all seems well!")
+    log("At least before logging into Discord, all seems well!");
 }
 // Logs into Discord if it is not a test.
