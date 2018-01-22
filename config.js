@@ -1,6 +1,16 @@
-{
+exports.config = {
+
+    // The application ID.
     "application_id" : "404026229931638784",
-    "change_interval" : 5,
+
+    /**
+     * This is the interval that the RPC scrolls through the games in seconds.
+     * 
+     * Default: 10 Seconds.
+     */
+    "change_interval" : 10,
+
+    // The game list: All the games that shall be scrolled through.
     "game_list" : [
         {
             "details":"Feel free to check out my GitHub!",
@@ -27,3 +37,12 @@
         }
     ]
 }
+
+exports.emoticons = [
+    /** 
+     * Add or remove spaces to vary the chance of getting an emoticon in the "Changed Activity" message.
+     * 
+     * Default: 6/34.
+     */ 
+    "^ω^", "~(˘▾˘~)", "(^o^)／", ">^_^<", "＼(^o^)／", "（^—^）", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
+]
