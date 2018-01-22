@@ -1,56 +1,41 @@
-/**
- * DCustomRPC
- * 
- * Created by JakeMakesStuff and contributors (https://github.com/JakeMakesStuff/DCustomRPC/contributors).
- */
-
-// Imports go here.
-const log = require("fancy-log");
-const { config } = require("./config");
-const { version } = require("./package.json");
-const { emoticons } = require("./config");
-
-// Defines the RPC client.
 const { Client } = require("discord-rpc");
+const log = require("fancy-log");
+const config = require("./config.json");
+// Imports go here.
 
-// Invokes an instance of the RPC client.
 const rpc = new Client({ transport: "ipc" });
+// Defines the RPC client.
 
-// Throws an exception if the change interval is 0.
-if (config.change_interval === 0) {
-    throw "The change interval cannot be 0. (╯°□°）╯︵ ┻━┻";
+if(config.change_interval === 0) {
+    throw "The change interval cannot be 0.";
 }
+// Throws an exception if the change interval is 0.
 
-log(`Starting DCustomRPC, Version: ${version}. ~(˘▾˘~)`)
-
-// Defines the game changing loop.
-async function gameloop() {
+function gameloop() {
     var x = true;
     while(x) {
         var r = Math.floor(Math.random() * config.game_list.length);
         if ((config.game_list[r] != global.current_game) || (config.game_list.length === 1)) {
             global.current_game = config.game_list[r];
             rpc.setActivity(config.game_list[r]);
-            var randEmote = emoticons[Math.floor(Math.random() * emoticons.length)]
-            log(`Changed activity. ${randEmote}`);
+            log("Changed activity.");
             x = false;
         }
     }
 }
+// Defines the game changing loop.
 
-// RPC ready event executes loop function.
-rpc.once('ready', () => {
-    log(`Logged into Discord with the application ID ${config.application_id}. (^o^)／`);
+rpc.on('ready', () => {
+    log(`Logged into Discord with the application ID ${config.application_id}.`);
     global.current_game = {};
     gameloop();
-    setInterval(gameloop, config.change_interval * 1000);
+    setInterval(gameloop, config.change_interval*1000);
 });
+// Defines the RPC being ready and starts the loop.
 
-// Logs into Discord if it is not a test.
-if (process.argv[2] != "test") {
-    rpc.login(config.application_id).catch( err => {
-        log.error(`Error logging into RPC client! (╯°□°）╯︵ ┻━┻\n${err}`)
-    });
+if(process.argv[2] != "test") {
+    rpc.login(config.application_id).catch(log.error);
 } else {
-    log("At least before logging into Discord, all seems well! >^_^<");
+    log("At least before logging into Discord, all seems well!");
 }
+// Logs into Discord if it is not a test.

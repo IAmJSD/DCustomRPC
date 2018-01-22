@@ -1,6 +1,6 @@
 {
   "name": "dcustomrpc",
-  "version": "1.0.2",
+  "version": "1.0.0",
   "description": "A custom rich presence client for Discord.",
   "main": "app.js",
   "repository": {
