@@ -11,10 +11,10 @@ exports.config = {
     "change_interval" : 10,
 
     /**
-	 * The chance a log message will have a emoticon.
-	 * Maximum integer for this is 1.  The higher the more chance.
-	 * To disable them, just set this to 0.
-	*/
+     * The chance a log message will have a emoticon.
+     * Maximum integer for this is 1.  The higher the more chance.
+     * To disable them, just set this to 0.
+    */
     "emoticon_chance" : 1,
 
     // The game list: All the games that shall be scrolled through.
