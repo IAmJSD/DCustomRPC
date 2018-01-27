@@ -21,6 +21,14 @@ if (config.change_interval === 0) {
     throw "The change interval cannot be 0. (╯°□°）╯︵ ┻━┻";
 }
 
+// Adds emoticons to log messages.
+function emoticonify(string) {
+    if (Math.random() <= config.emoticon_chance) {
+        var randEmote = emoticons[Math.floor(Math.random() * emoticons.length)];
+        return string + " " + randEmote;
+    } else { return string; }
+}
+
 log(`Starting DCustomRPC, Version: ${version}. ~(˘▾˘~)`)
 
 // Defines the game changing loop.
@@ -31,8 +39,7 @@ async function gameloop() {
         if ((config.game_list[r] != global.current_game) || (config.game_list.length === 1)) {
             global.current_game = config.game_list[r];
             rpc.setActivity(config.game_list[r]);
-            var randEmote = emoticons[Math.floor(Math.random() * emoticons.length)]
-            log(`Changed activity. ${randEmote}`);
+            log(emoticonify("Changed activity."));
             x = false;
         }
     }

@@ -7,8 +7,15 @@ exports.config = {
      * This is the interval that the RPC scrolls through the games in seconds.
      * 
      * Default: 10 Seconds.
-     */
+    */
     "change_interval" : 10,
+
+    /**
+	 * The chance a log message will have a emoticon.
+	 * Maximum integer for this is 1.  The higher the more chance.
+	 * To disable them, just set this to 0.
+	*/
+    "emoticon_chance" : 1,
 
     // The game list: All the games that shall be scrolled through.
     "game_list" : [
@@ -38,11 +45,7 @@ exports.config = {
     ]
 }
 
+// The list of emoticons used in log messages.
 exports.emoticons = [
-    /** 
-     * Add or remove spaces to vary the chance of getting an emoticon in the "Changed Activity" message.
-     * 
-     * Default: 6/34.
-     */ 
-    "^ω^", "~(˘▾˘~)", "(^o^)／", ">^_^<", "＼(^o^)／", "（^—^）", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
+    "^ω^", "~(˘▾˘~)", "(^o^)／", ">^_^<", "＼(^o^)／", "（^—^）"
 ]
