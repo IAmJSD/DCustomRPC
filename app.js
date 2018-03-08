@@ -9,7 +9,6 @@ const log = require("fancy-log");
 const { config } = require("./config");
 const { version } = require("./package.json");
 const { emoticons } = require("./config");
-// Defines the RPC client.
 const { Client } = require("discord-rpc");
 
 // Invokes an instance of the RPC client.
