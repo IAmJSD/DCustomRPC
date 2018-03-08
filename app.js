@@ -9,7 +9,6 @@ const log = require("fancy-log");
 const { config } = require("./config");
 const { version } = require("./package.json");
 const { emoticons } = require("./config");
-
 // Defines the RPC client.
 const { Client } = require("discord-rpc");
 
@@ -18,7 +17,7 @@ const rpc = new Client({ transport: "ipc" });
 
 // Throws an exception if the change interval is 0.
 if (config.change_interval === 0) {
-    throw "The change interval cannot be 0. (╯°□°）╯︵ ┻━┻";
+    console.log("The change interval cannot be 0. (╯°□°）╯︵ ┻━┻");
 }
 
 // Adds emoticons to log messages.
@@ -29,7 +28,7 @@ function emoticonify(string) {
     } else { return string; }
 }
 
-log(`Starting DCustomRPC, Version: ${version}. ~(˘▾˘~)`)
+console.log(`Starting DCustomRPC, Version: ${version}. ~(˘▾˘~)`)
 
 // Defines the game changing loop.
 async function gameloop() {
@@ -56,8 +55,8 @@ rpc.once('ready', () => {
 // Logs into Discord if it is not a test.
 if (process.argv[2] != "test") {
     rpc.login(config.application_id).catch( err => {
-        log.error(`Error logging into RPC client! (╯°□°）╯︵ ┻━┻\n${err}`)
+        console.log(`Error logging into RPC client! (╯°□°）╯︵ ┻━┻\n${err}`)
     });
 } else {
-    log("At least before logging into Discord, all seems well! >^_^<");
+    console.log("everything good");
 }
