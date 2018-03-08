@@ -17,7 +17,7 @@ const rpc = new Client({ transport: "ipc" });
 
 // Throws an exception if the change interval is 0.
 if (config.change_interval === 0) {
-    console.log("The change interval cannot be 0. (╯°□°）╯︵ ┻━┻)";
+    console.log("The change interval cannot be 0. (╯°□°）╯︵ ┻━┻");
 }
 
 // Adds emoticons to log messages.
