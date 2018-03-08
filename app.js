@@ -58,5 +58,5 @@ if (process.argv[2] != "test") {
         console.log(`Error logging into RPC client! (╯°□°）╯︵ ┻━┻\n${err}`)
     });
 } else {
-    console.log("everything good");
+    console.log("At least before logging into Discord, all seems well! >^_^<");
 }
