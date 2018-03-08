@@ -17,7 +17,7 @@ const rpc = new Client({ transport: "ipc" });
 
 // Throws an exception if the change interval is 0.
 if (config.change_interval === 0) {
-    console.log("The change interval cannot be 0. (╯°□°）╯︵ ┻━┻");
+    log("The change interval cannot be 0. (╯°□°）╯︵ ┻━┻");
 }
 
 // Adds emoticons to log messages.
@@ -28,7 +28,7 @@ function emoticonify(string) {
     } else { return string; }
 }
 
-console.log(`Starting DCustomRPC, Version: ${version}. ~(˘▾˘~)`)
+log(`Starting DCustomRPC, Version: ${version}. ~(˘▾˘~)`)
 
 // Defines the game changing loop.
 async function gameloop() {
@@ -55,8 +55,8 @@ rpc.once('ready', () => {
 // Logs into Discord if it is not a test.
 if (process.argv[2] != "test") {
     rpc.login(config.application_id).catch( err => {
-        console.log(`Error logging into RPC client! (╯°□°）╯︵ ┻━┻\n${err}`)
+        log(`Error logging into RPC client! (╯°□°）╯︵ ┻━┻\n${err}`)
     });
 } else {
-    console.log("At least before logging into Discord, all seems well! >^_^<");
+    log("At least before logging into Discord, all seems well! >^_^<");
 }
