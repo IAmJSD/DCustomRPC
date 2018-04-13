@@ -6,7 +6,7 @@ DCustomRPC is a custom rich presence client that you (you right there, yes you) 
 ![img1](https://i.imgur.com/8Pf5HjT.png)
 
 ## How do I configure this?
-Simple! Open up `config.json` in a text editor and you will notice my configuration is there for an example. Simply go to https://discordapp.com/developers/applications/me, login and make a application with the name you want to show as the name of the game your are playing. Once you have done that, enable rich presence on the applcation by clicking `Enable Rich Presence` and then copy the application ID into the `application_id` field in the config.
+Simple! Open up `config.js` in a text editor and you will notice my configuration is there for an example. Simply go to https://discordapp.com/developers/applications/me, login and make a application with the name you want to show as the name of the game your are playing. Once you have done that, enable rich presence on the applcation by clicking `Enable Rich Presence` and then copy the application ID into the `application_id` field in the config.
 
 Next you can adjust how many seconds before it updates to another activity by changing the `change_interval` in the configuration.
 

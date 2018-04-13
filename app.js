@@ -9,8 +9,6 @@ const log = require("fancy-log");
 const { config } = require("./config");
 const { version } = require("./package.json");
 const { emoticons } = require("./config");
-
-// Defines the RPC client.
 const { Client } = require("discord-rpc");
 
 // Invokes an instance of the RPC client.
@@ -18,7 +16,15 @@ const rpc = new Client({ transport: "ipc" });
 
 // Throws an exception if the change interval is 0.
 if (config.change_interval === 0) {
-    throw "The change interval cannot be 0. (╯°□°）╯︵ ┻━┻";
+    log("The change interval cannot be 0. (╯°□°）╯︵ ┻━┻");
+}
+
+// Adds emoticons to log messages.
+function emoticonify(string) {
+    if (Math.random() <= config.emoticon_chance) {
+        var randEmote = emoticons[Math.floor(Math.random() * emoticons.length)];
+        return string + " " + randEmote;
+    } else { return string; }
 }
 
 log(`Starting DCustomRPC, Version: ${version}. ~(˘▾˘~)`)
@@ -31,8 +37,7 @@ async function gameloop() {
         if ((config.game_list[r] != global.current_game) || (config.game_list.length === 1)) {
             global.current_game = config.game_list[r];
             rpc.setActivity(config.game_list[r]);
-            var randEmote = emoticons[Math.floor(Math.random() * emoticons.length)]
-            log(`Changed activity. ${randEmote}`);
+            log(emoticonify("Changed activity."));
             x = false;
         }
     }
@@ -49,7 +54,7 @@ rpc.once('ready', () => {
 // Logs into Discord if it is not a test.
 if (process.argv[2] != "test") {
     rpc.login(config.application_id).catch( err => {
-        log.error(`Error logging into RPC client! (╯°□°）╯︵ ┻━┻\n${err}`)
+        log(`Error logging into RPC client! (╯°□°）╯︵ ┻━┻\n${err}`)
     });
 } else {
     log("At least before logging into Discord, all seems well! >^_^<");
