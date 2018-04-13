@@ -5,7 +5,7 @@
  */
 
 // Imports go here.
-const { info, debug, warn, error } = require("fancy-log");
+const { info, warn, error } = require("fancy-log");
 const { config, emoticons } = require("./config");
 const { version } = require("./package.json");
 const { Client } = require("discord-rpc");
@@ -52,7 +52,7 @@ if (process.argv[2] != "test") {
         error(`Error logging into RPC client! (╯°□°）╯︵ ┻━┻\n${err}`);
     });
 } else {
-    debug("At least before logging into Discord, all seems well! >^_^<");
+    info("At least before logging into Discord, all seems well! >^_^<");
 }
 
 /* Reusable functions */
