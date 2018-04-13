@@ -17,7 +17,7 @@ exports.config = {
      * For example 0.75 would be equivelant to a 75% of getting an emoji
      * To disable the emoticons, just set this to 0.
     */
-    "emoticon_chance" : 3,
+    "emoticon_chance" : 1,
 
     // The game list: All the games that shall be scrolled through.
     "game_list" : [
