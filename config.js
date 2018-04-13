@@ -8,7 +8,7 @@ exports.config = {
      * 
      * Default: 10 Seconds.
     */
-    "change_interval" : 1,
+    "change_interval" : 10,
 
     /**
      * The chance a status change log message will have an emoticon.
