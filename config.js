@@ -40,6 +40,12 @@ exports.config = {
             "largeImageText":"https://kuvien.io/"
         },
         {
+            "details":"Auttaja",
+            "state":"Auttaja is the best Discord bot! - https://auttaja.io/",
+            "largeImageKey":"auttaja_large",
+            "largeImageText":"The logo!"
+        },
+        {
             "details":"Welcome!",
             "state":"I am a passionate 15 year old developer.",
             "largeImageKey":"wave_large"
