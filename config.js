@@ -41,7 +41,7 @@ exports.config = {
         },
         {
             "details":"Auttaja",
-            "state":"Auttaja is the best Discord bot! - https://auttaja.io/",
+            "state":"Auttaja is the best Discord bot!",
             "largeImageKey":"auttaja_large",
             "largeImageText":"The logo!"
         },
