@@ -33,6 +33,6 @@ The config should be fairly easy to setup:
         ![sm_text](https://i.imgur.com/EApOnTl.png)
 
 ## Setting up DCustomRPC:
-DCustomRPC requires Python 3.5+. If you have anything older installed, you will need to install Python 3.5+ and make sure it is added to the PATH. From here, you can run `py -m pip install -r requirements.txt` (the `py` bit might change to `python3.5`/`python3.6`, try that if you can't get that to work).
+DCustomRPC requires Python 3.5+. If you have anything older installed, you will need to install Python 3.6+ and make sure it is added to the PATH. From here, you can run `py -m pip install -r requirements.txt` (the `py` bit might change to `python3.5`/`python3.6`, try that if you can't get that to work).
 
 On Windows to set this to start on boot, simply take the `dcustomrpc.pyw`, right click it, hover over "Send to" then click "Desktop (create shortcut)". Then cut the icon from your desktop, go to `shell:startup` in Windows Explorer and paste it in there.
