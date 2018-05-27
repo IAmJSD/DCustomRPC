@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/JakeMakesStuff/DCustomRPC.svg?branch=master)](https://travis-ci.org/JakeMakesStuff/DCustomRPC)
+
 # DCustomRPC: The Rewrite!
 
 DCustomRPC is a custom rich presence client that you (you right there, yes you) can customize.
