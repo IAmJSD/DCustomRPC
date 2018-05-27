@@ -1,34 +1,32 @@
-# DCustomRPC: The Rewrite!
+[![Build Status](https://travis-ci.org/JakeMakesStuff/DCustomRPC.svg?branch=master)](https://travis-ci.org/JakeMakesStuff/DCustomRPC)
 
-DCustomRPC is a custom rich presence client that you (you right there, yes you) can customize.
+# DCustomRPC
+DCustomRPC is a custom rich presence client that you (you right there, yes you) can customise. The only recommendation is that you know JSON.
 
-![intro_img](https://i.imgur.com/8Pf5HjT.png)
+![img1](https://i.imgur.com/8Pf5HjT.png)
 
-## Setting up the config:
-The config should be fairly easy to setup:
-1. Firstly go to Discord Developers (https://discordapp.com/developers/applications/) and sign in.
-2. From here, click the "New App" button and enter a "App Name". This will show as what you are playing. "App Description" and "App Icon" do not matter for rich presence.
-3. After this, you should be on the application page. Scroll down and click "Enable Rich Presence" and then "Save Changes".
-4. After you have done this, you can copy the "Client ID" (under "App Details") and replace the client_id already in the config file.
-5. To setup the game list, we will need to seperate each of the games by a "-" with the spacing from the config for the dashes and the remaining keys. Each game can contain the following:
-    - `details` - This is the shorter description for the game:
+## How do I configure this?
+Simple! Open up `config.js` in a text editor and you will notice my configuration is there for an example. Simply go to https://discordapp.com/developers/applications/me, login and make a application with the name you want to show as the name of the game your are playing. Once you have done that, enable rich presence on the applcation by clicking `Enable Rich Presence` and then copy the application ID into the `application_id` field in the config.
 
-        ![details](https://i.imgur.com/9Z7OdfI.png)
-    - `state` - This is the longer description for the game:
+Next you can adjust how many seconds before it updates to another activity by changing the `change_interval` in the configuration.
 
-        ![state](https://i.imgur.com/i1YbCfd.png)
-    - `large_image` - The image key for the large image on the game. In order to attach your image to a key, open up your Discord Developers page for your app and scroll down to "Rich Presence Assets". From here, since we want a large image, we upload the image, enter the key (which we will write in the config) and select "Large". Then make sure to click "Upload Asset" and "Save Changes". After we add to the config, this will look like this:
+The next bit is the exciting part! Changing the list of games (`game_list`). It is a array of JSON, for which you can use the following values:
 
-        ![lg_image](https://i.imgur.com/KbQdc61.png)
-    - `large_text` - This will be the text for when you hover over the large image:
+- `details` - The second thing that shows after the status.
+- `state` - The description of the status.
+- `largeImageKey` - The key for your large image. You can add images on the Discord Developers page under "Rich Presence Assets" and then the name is your key.
+- `largeImageText` - The text when you hover over the large image.
+- `smallImageKey` - The image that is under the large image. There is a good chance you do not want this second image, but you can add it if you want to. You can add the asset the same way as the large image.
+- `smallImageText` - The text when you hover over the small image.
 
-        ![lg_text](https://i.imgur.com/nNRHtxo.png)
-    - `small_image` - The image key for the small image on the game. In order to attach your image to a key, open up your Discord Developers page for your app and scroll down to "Rich Presence Assets". From here, since we want a small image, we upload the image, enter the key (which we will write in the config) and select "Small". Then make sure to click "Upload Asset" and "Save Changes". After we add to the config, this will look like this:
+## I am done configuring. How do I set this thing up?
+1. Install node.js
+2. Run `npm i` in the folder you have this application in.
+3. Run `node app.js`.
 
-        ![sm_image](https://i.imgur.com/wjo0Nkx.png)
-    - `small_text` - This will be the text for when you hover over the small image:
+If you want it to start in the background, you can do the following:
 
-        ![sm_text](https://i.imgur.com/EApOnTl.png)
+1. Run `npm i pm2 -g` as administrator.
+2. Type `pm2 start app.js --name="DCustomRPC"`.
 
-## Setting up DCustomRPC:
-DCustomRPC requires Python 3.5+. If you have anything older installed, you will need to install Python 3.5+ and make sure it is added to the PATH. From here, you can run `py -m pip install -r requirements.txt` (the `py` bit might change to `python3.5`/`python3.6`, try that if you can't get that to work).
+Even though I have not tested, you can probably also make some sort of shortcut to a batch file running that to make it start on boot.
