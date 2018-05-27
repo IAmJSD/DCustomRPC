@@ -122,7 +122,7 @@ def main(loop):
 
     try:
         game_cycle = config.game_cycle
-        logger.info(f"Found a list of games to cycle.")
+        logger.info("Found a list of games to cycle.")
         cycle = True
     except AttributeError:
         game_cycle = None
