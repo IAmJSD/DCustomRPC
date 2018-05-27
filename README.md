@@ -35,9 +35,9 @@ The config should be fairly easy to setup:
 ## Setting up DCustomRPC:
 DCustomRPC requires Python 3.6+. If you have anything older installed, you will need to install Python 3.6+ and make sure it is added to the PATH. From here, you can run `py -m pip install -r requirements.txt` (the `py` bit might change to `python3.5`/`python3.6`, try that if you can't get that to work).
 
-## Starting DCustomRPC:
+## Starting DCustomRPC in the commandline:
 
-It's simple, if everything is working and you have installed the proper requirments run `py dcustomrpc.pyw`
+In order to check everything is working in the command line, you can run `py dcustomrpc.pyw`.
 
 ## Starting DCustomRPC on Windows Boot: 
 
