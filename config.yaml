@@ -1,0 +1,39 @@
+# -----------------
+# DCustomRPC Config
+# -----------------
+# Please read the README.md before asking for support.
+
+client_id: 404026229931638784
+# The client ID of the application you made on the Discord Developers page.
+
+game_cycle:
+
+  time_until_cycle: 10
+  # The time until the game cycles.
+
+  games:
+    -
+      details: Welcome!
+      state: I am a passionate 15 year old developer.
+      large_image: wave_large
+    -
+      details: Feel free to check out my GitHub!
+      state: https://github.com/JakeMakesStuff
+      large_image: gh_large
+      large_text: JakeMakesStuff
+    -
+      details: Powered by DCustomRPC!
+      state: This custom rich presence integration is powered by DCustomRPC.
+      large_image: discord_large
+      large_text: Search for DCustomRPC on GitHub. You'll find it.
+    -
+      details: Kuvien.io
+      state: Kuvien.io is the best image host.
+      large_image: kuvien_large
+      large_text: The logo!
+    -
+      details: Auttaja
+      state: Auttaja is the best Discord bot!
+      large_image: auttaja_large
+      large_text: The logo!
+  # The list of games that it will cycle through.

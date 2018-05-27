@@ -1,5 +1,12 @@
-language: node_js
-node_js:
-   - "8.9.4"
+language: python
+sudo: false
+cache: pip
+python:
+  - '3.5'
+  - '3.6'
+fail_fast: true
+before_install:
+  - pip install pycodestyle
 script:
-   - node app.js test
+  - pycodestyle .
+  - py -c "import yaml; yaml.load(open('config.yaml', 'r'))"
