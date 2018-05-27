@@ -3,7 +3,6 @@ sudo: false
 cache: pip
 python:
   - '3.6'
-  - '3.7-dev'
 fail_fast: true
 before_install:
   - pip install pycodestyle
