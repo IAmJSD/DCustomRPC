@@ -1,10 +1,10 @@
 [![Build Status](https://travis-ci.org/JakeMakesStuff/DCustomRPC.svg?branch=master)](https://travis-ci.org/JakeMakesStuff/DCustomRPC)
 
-# DCustomRPC: The Rewrite!
+# DCustomRPC: The Rewrite for Python 3.5!
 
 DCustomRPC is a custom rich presence client that you (you right there, yes you) can customize.
 
-![intro_img](https://i.imgur.com/8Pf5HjT.png)
+![intro_img](https://public.rossm.pw/i/introimg.png)
 
 ## Setting up the config:
 The config should be fairly easy to setup:
@@ -15,22 +15,22 @@ The config should be fairly easy to setup:
 5. To setup the game list, we will need to seperate each of the games by a "-" with the spacing from the config for the dashes and the remaining keys. Each game can contain the following:
     - `details` - This is the shorter description for the game:
 
-        ![details](https://i.imgur.com/9Z7OdfI.png)
+        ![details](https://public.rossm.pw/i/CustomRPC/9Z7OdfI.png)
     - `state` - This is the longer description for the game:
 
-        ![state](https://i.imgur.com/i1YbCfd.png)
+        ![state](https://public.rossm.pw/i/CustomRPC/i1YbCfd.png)
     - `large_image` - The image key for the large image on the game. In order to attach your image to a key, open up your Discord Developers page for your app and scroll down to "Rich Presence Assets". From here, since we want a large image, we upload the image, enter the key (which we will write in the config) and select "Large". Then make sure to click "Upload Asset" and "Save Changes". After we add to the config, this will look like this:
 
-        ![lg_image](https://i.imgur.com/KbQdc61.png)
+        ![lg_image](https://public.rossm.pw/i/CustomRPC/KbQdc61.png)
     - `large_text` - This will be the text for when you hover over the large image:
 
-        ![lg_text](https://i.imgur.com/nNRHtxo.png)
+        ![lg_text](https://public.rossm.pw/i/CustomRPC/nNRHtxo.png)
     - `small_image` - The image key for the small image on the game. In order to attach your image to a key, open up your Discord Developers page for your app and scroll down to "Rich Presence Assets". From here, since we want a small image, we upload the image, enter the key (which we will write in the config) and select "Small". Then make sure to click "Upload Asset" and "Save Changes". After we add to the config, this will look like this:
 
-        ![sm_image](https://i.imgur.com/wjo0Nkx.png)
+        ![sm_image](https://public.rossm.pw/i/CustomRPC/wjo0Nkx.png)
     - `small_text` - This will be the text for when you hover over the small image:
 
-        ![sm_text](https://i.imgur.com/EApOnTl.png)
+        ![sm_text](https://public.rossm.pw/i/CustomRPC/EApOnTl.png)
 
 ## Setting up DCustomRPC:
 DCustomRPC requires Python 3.5+. If you have anything older installed, you will need to install Python 3.5+ and make sure it is added to the PATH. From here, you can run `py -m pip install -r requirements.txt` (the `py` bit might change to `python3.5`/`python3.6`, try that if you can't get that to work).
