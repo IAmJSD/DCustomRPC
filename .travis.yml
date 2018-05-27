@@ -9,4 +9,4 @@ before_install:
   - pip install pycodestyle
 script:
   - pycodestyle .
-  - py -c "import yaml; yaml.load(open('config.yaml', 'r'))"
+  - python -c "import yaml; yaml.load(open('config.yaml', 'r'))"
