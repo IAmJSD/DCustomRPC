@@ -96,12 +96,15 @@ async def game_cycle_loop(game_cycle, client, loop):
             def blocking_wrap():
                 client.update(**game)
 
-            await loop.run_in_executor(
-                None,
-                blocking_wrap
-            )
-            logger.info("Changed the game.")
-            await asyncio.sleep(time_until_cycle)
+            try:
+                await loop.run_in_executor(
+                    None,
+                    blocking_wrap
+                )
+                logger.info("Changed the game.")
+                await asyncio.sleep(time_until_cycle)
+            except TypeError:
+                logger.error("The game is formatted wrong.")
 # Runs the game cycle loop.
 
 
