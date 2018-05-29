@@ -32,6 +32,10 @@ The config should be fairly easy to setup:
 
         ![sm_text](https://i.imgur.com/EApOnTl.png)
 
+## Useful Links
+[Python 3.6.5](https://www.python.org/downloads/release/python-365/) 
+[Repo Download: Stable](https://github.com/JakeMakesStuff/DCustomRPC/archive/master.zip) 
+
 ## Setting up DCustomRPC:
 DCustomRPC requires Python 3.6+. If you have anything older installed, you will need to install Python 3.6+ and make sure it is added to the PATH. From here, you can run `py -m pip install -r requirements.txt` (the `py` bit might change to `python3.5`/`python3.6`, try that if you can't get that to work).
 
