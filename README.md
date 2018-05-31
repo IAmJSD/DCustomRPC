@@ -37,17 +37,17 @@ The config should be fairly easy to setup:
 
 [Repo Download: Stable](https://github.com/JakeMakesStuff/DCustomRPC/archive/master.zip) 
 
+## Discord prerequisites:
+Please make sure that game statuses are turned on:
+
+![Game Toggle](https://i.imgur.com/V4FWevH.png)
+
 ## Setting up DCustomRPC:
 DCustomRPC requires Python 3.6+. If you have anything older installed, you will need to install Python 3.6+ and make sure it is added to the PATH. From here, you can run `py -m pip install -r requirements.txt` (the `py` bit might change to `python3.5`/`python3.6`, try that if you can't get that to work).
 
 ## Starting DCustomRPC in the commandline:
 
 In order to check everything is working in the command line, you can run `py dcustomrpc.pyw`.
-
-## Please, make sure this is enabled.
-![IMG](https://i.rossm.pw/283520.png)
-
-Otherwise, DCustomRPC will start but not display on your status!
 
 ## Starting DCustomRPC on Windows Boot: 
 
