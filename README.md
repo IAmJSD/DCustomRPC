@@ -44,6 +44,10 @@ DCustomRPC requires Python 3.6+. If you have anything older installed, you will 
 
 In order to check everything is working in the command line, you can run `py dcustomrpc.pyw`.
 
+## Please, make sure this is enabled.
+![IMG](https://i.rossm.pw/283520.png)
+
+Otherwise, DCustomRPC will start but not display on your status!
 ## Starting DCustomRPC on Windows Boot: 
 
 On Windows to set this to start on boot, simply take the `dcustomrpc.pyw`, right click it, hover over "Send to" then click "Desktop (create shortcut)". Then cut the icon from your desktop, go to `shell:startup` in Windows Explorer and paste it in there.
