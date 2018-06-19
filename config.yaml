@@ -27,11 +27,6 @@ game_cycle:
       large_image: discord_large
       large_text: Search for DCustomRPC on GitHub. You'll find it.
     -
-      details: Kuvien.io
-      state: Kuvien.io is the best image host.
-      large_image: kuvien_large
-      large_text: The logo!
-    -
       details: Auttaja
       state: Auttaja is the best Discord bot!
       large_image: auttaja_large
