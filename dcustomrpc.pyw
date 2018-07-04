@@ -2,10 +2,12 @@ import asyncio
 import pypresence
 import yaml
 import os
+import sys
 import logging
 # Imports go here.
 
 try:
+    import tkinter
     from tkinter import messagebox
 except ImportError:
     pass
@@ -87,26 +89,31 @@ def try_show_error_box(exception):
 
 
 async def game_cycle_loop(game_cycle, client, loop):
-    games = game_cycle["games"]
     try:
-        time_until_cycle = game_cycle["time_until_cycle"]
-    except KeyError:
-        time_until_cycle = 10
-    while cycle:
-        for game in games:
+        games = game_cycle["games"]
+        try:
+            time_until_cycle = game_cycle["time_until_cycle"]
+        except KeyError:
+            time_until_cycle = 10
+        while cycle:
+            for game in games:
 
-            def blocking_wrap():
-                client.update(**game)
+                def blocking_wrap():
+                    client.update(**game)
 
-            try:
-                await loop.run_in_executor(
-                    None,
-                    blocking_wrap
-                )
-                logger.info("Changed the game.")
-                await asyncio.sleep(time_until_cycle)
-            except TypeError:
-                logger.error("The game is formatted wrong.")
+                try:
+                    await loop.run_in_executor(
+                        None,
+                        blocking_wrap
+                    )
+                    logger.info("Changed the game.")
+                    await asyncio.sleep(time_until_cycle)
+                except TypeError:
+                    logger.error("The game is formatted wrong.")
+    except BaseException as e:
+        try_show_error_box(e)
+        logger.exception(e)
+        sys.exit(1)
 # Runs the game cycle loop.
 
 
@@ -161,7 +168,10 @@ if __name__ == '__main__':
         loop = asyncio.get_event_loop()
         main(loop)
         loop.run_forever()
+    except SystemExit:
+        pass
     except BaseException as e:
         try_show_error_box(e)
-        raise e
+        logger.exception(e)
+        sys.exit(1)
 # Starts the script.
