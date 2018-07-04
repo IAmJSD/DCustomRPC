@@ -143,7 +143,6 @@ def main(loop):
     try:
         game_cycle = config.game_cycle
         logger.info("Found a list of games to cycle.")
-        cycle = True
     except AttributeError:
         game_cycle = {
             "time_until_cycle": 10,
@@ -154,6 +153,8 @@ def main(loop):
                 }
             ]
         }
+
+    cycle = True
 
     client = pypresence.Presence(
         client_id,
