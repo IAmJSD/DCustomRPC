@@ -80,7 +80,7 @@ root = os.path.dirname(os.path.abspath(__file__))
 def try_show_error_box(exception):
     try:
         messagebox.showerror(
-            "DCustomRPC", f"{exception}")
+            "DCustomRPC", "{}".format(exception))
     except BaseException:
         pass
 # Tries to show a error.
