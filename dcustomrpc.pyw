@@ -21,7 +21,7 @@ except ImportError:
     pass
 # Tries to import PIL and pystray.
 
-cycle = False
+cycle = True
 # Sets whether we are cycling games.
 
 
@@ -98,6 +98,20 @@ def try_show_error_box(exception):
 # Tries to show a error.
 
 
+def listening_sleeper(_time):
+    global cycle
+    ticks = _time / 0.1
+    count = 0
+    while cycle and count != ticks:
+        try:
+            time.sleep(0.1)
+            count += 1
+        except KeyboardInterrupt:
+            cycle = False
+            return
+# Listens and sleeps.
+
+
 def main():
     logging.basicConfig(level=logging.INFO)
 
@@ -110,8 +124,6 @@ def main():
         raise ClientIDNotProvided(
             "No client ID was provided in the config."
         )
-
-    global cycle
 
     try:
         game_cycle = config.game_cycle
@@ -126,8 +138,6 @@ def main():
                 }
             ]
         }
-
-    cycle = True
 
     client = pypresence.Presence(
         client_id,
@@ -148,12 +158,17 @@ def main():
             "time_until_cycle", 10)
         while cycle:
             for game in games:
+                if not cycle:
+                    break
+
                 try:
                     client.update(**game)
                     logger.info("Changed the game.")
-                    time.sleep(time_until_cycle)
+                    listening_sleeper(time_until_cycle)
                 except TypeError:
                     logger.error("The game is formatted wrong.")
+
+        client.close()
     except BaseException as e:
         try_show_error_box(e)
         logger.exception(e)
@@ -209,6 +224,8 @@ if __name__ == '__main__':
     try:
         main()
     except SystemExit:
+        pass
+    except KeyboardInterrupt:
         pass
     except BaseException as e:
         try_show_error_box(e)
