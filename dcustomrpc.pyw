@@ -98,11 +98,8 @@ async def game_cycle_loop(game_cycle, client, loop):
                     "details": "Nothing to cycle."
                 }
         ])
-        try:
-            time_until_cycle = game_cycle.get(
-                "time_until_cycle", 10)
-        except KeyError:
-            time_until_cycle = 10
+        time_until_cycle = game_cycle.get(
+            "time_until_cycle", 10)
         while cycle:
             for game in games:
 
