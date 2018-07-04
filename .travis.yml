@@ -1,7 +1,7 @@
 language: python
 sudo: false
 cache: pip
-dist: xenial
+dist: BionicBeaver
 python:
   - '3.6'
   - '3.7'
