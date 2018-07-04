@@ -1,5 +1,5 @@
 language: python
-sudo: required
+sudo: true
 cache: pip
 dist: BionicBeaver
 python:
