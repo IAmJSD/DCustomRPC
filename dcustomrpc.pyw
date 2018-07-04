@@ -5,6 +5,11 @@ import os
 import logging
 # Imports go here.
 
+try:
+    from tkinter import messagebox
+except ImportError:
+    pass
+# Imports tkinter if it can.
 
 cycle = False
 # Sets whether we are cycling games.
@@ -70,6 +75,15 @@ logger = logging.getLogger("dcustomrpc")
 
 root = os.path.dirname(os.path.abspath(__file__))
 # The root folder for DCustomRPC.
+
+
+def try_show_error_box(exception):
+    try:
+        messagebox.showerror(
+            "DCustomRPC", f"{exception}")
+    except BaseException:
+        pass
+# Tries to show a error.
 
 
 async def game_cycle_loop(game_cycle, client, loop):
@@ -143,7 +157,11 @@ def main(loop):
 
 
 if __name__ == '__main__':
-    loop = asyncio.get_event_loop()
-    main(loop)
-    loop.run_forever()
+    try:
+        loop = asyncio.get_event_loop()
+        main(loop)
+        loop.run_forever()
+    except BaseException as e:
+        try_show_error_box(e)
+        raise e
 # Starts the script.
