@@ -216,6 +216,7 @@ class TrayIcon(threading.Thread):
             "https://hastebin.com/" +
             post.json()["key"] + ".txt"
         )
+    # Displays logs from the past 15 mins.
 
     def main_function(self):
         image = Image.open(root + "/logo.ico")
