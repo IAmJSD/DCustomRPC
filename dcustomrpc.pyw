@@ -5,6 +5,9 @@ import os
 import sys
 import logging
 import threading
+import webbrowser
+import requests
+from io import StringIO
 # Imports go here.
 
 try:
@@ -112,8 +115,23 @@ def listening_sleeper(_time):
 # Listens and sleeps.
 
 
+log_stream = StringIO()
+# The stream of the logger.
+
+
 def main():
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(
+        level=logging.INFO
+    )
+
+    formatting = logging.Formatter(
+        "%(levelname)s:%(name)s:%(message)s"
+    )
+
+    log = logging.StreamHandler(log_stream)
+    log.setLevel(logging.INFO)
+    log.setFormatter(formatting)
+    logger.addHandler(log)
 
     logger.info("Loading the config.")
     config = load_config(root + "/config.yaml")
@@ -188,13 +206,26 @@ class TrayIcon(threading.Thread):
         cycle = False
     # Exits the application.
 
+    @staticmethod
+    def display_logs():
+        post = requests.post(
+            "https://hastebin.com/documents",
+            data=log_stream.getvalue()
+        )
+        webbrowser.open(
+            "https://hastebin.com/" +
+            post.json()["key"] + ".txt"
+        )
+
     def main_function(self):
         image = Image.open(root + "/logo.ico")
 
         menu = pystray.Menu(
             pystray.MenuItem(
-                "Exit", self.exit_app,
-                default=True
+                "Exit", self.exit_app
+            ),
+            pystray.MenuItem(
+                "Show Logs", self.display_logs
             )
         )
 
@@ -217,9 +248,22 @@ class TrayIcon(threading.Thread):
     # Tries to launch the task tray.
 
 
+def flush_log_every_15_mins():
+    while True:
+        time.sleep(900)
+        global log_stream
+        log_stream = StringIO()
+# Flushes the log every 15 mins.
+
+
 if __name__ == '__main__':
     tray = TrayIcon()
     tray.start()
+
+    threading.Thread(
+        target=flush_log_every_15_mins,
+        daemon=True
+    ).start()
 
     try:
         main()

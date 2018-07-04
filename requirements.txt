@@ -2,3 +2,4 @@ pypresence
 pyyaml
 pillow
 pystray
+requests
