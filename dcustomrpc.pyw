@@ -37,7 +37,8 @@ class ClientIDNotProvided(Exception):
 
 def dict2class(_dict: dict):
     class DictBasedClass:
-        pass
+        def __getattribute__(self, item):
+            self.__getattr__(item)
 
     for key in _dict:
         setattr(DictBasedClass, key, _dict[key])
