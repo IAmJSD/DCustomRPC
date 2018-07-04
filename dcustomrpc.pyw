@@ -252,8 +252,7 @@ class TrayIcon(threading.Thread):
 def flush_log_every_15_mins():
     while True:
         time.sleep(900)
-        global log_stream
-        log_stream = StringIO()
+        log_stream.truncate(0)
 # Flushes the log every 15 mins.
 
 
