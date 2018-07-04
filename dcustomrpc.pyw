@@ -1,4 +1,4 @@
-import asyncio
+import time
 import pypresence
 import yaml
 import os
@@ -98,39 +98,7 @@ def try_show_error_box(exception):
 # Tries to show a error.
 
 
-async def game_cycle_loop(game_cycle, client, loop):
-    try:
-        games = game_cycle.get("games", [
-                {
-                    "state": "No cycle found.",
-                    "details": "Nothing to cycle."
-                }
-        ])
-        time_until_cycle = game_cycle.get(
-            "time_until_cycle", 10)
-        while cycle:
-            for game in games:
-
-                def blocking_wrap():
-                    client.update(**game)
-
-                try:
-                    await loop.run_in_executor(
-                        None,
-                        blocking_wrap
-                    )
-                    logger.info("Changed the game.")
-                    await asyncio.sleep(time_until_cycle)
-                except TypeError:
-                    logger.error("The game is formatted wrong.")
-    except BaseException as e:
-        try_show_error_box(e)
-        logger.exception(e)
-        sys.exit(1)
-# Runs the game cycle loop.
-
-
-def main(loop):
+def main():
     logging.basicConfig(level=logging.INFO)
 
     logger.info("Loading the config.")
@@ -169,10 +137,27 @@ def main(loop):
     logger.info("Connecting the client.")
     client.connect()
 
-    loop.create_task(
-        game_cycle_loop(game_cycle, client, loop)
-    )
-    logger.info("Created the game cycle task.")
+    try:
+        games = game_cycle.get("games", [
+                {
+                    "state": "No cycle found.",
+                    "details": "Nothing to cycle."
+                }
+        ])
+        time_until_cycle = game_cycle.get(
+            "time_until_cycle", 10)
+        while cycle:
+            for game in games:
+                try:
+                    client.update(**game)
+                    logger.info("Changed the game.")
+                    time.sleep(time_until_cycle)
+                except TypeError:
+                    logger.error("The game is formatted wrong.")
+    except BaseException as e:
+        try_show_error_box(e)
+        logger.exception(e)
+        sys.exit(1)
 # The main script that is executed.
 
 
@@ -186,7 +171,6 @@ class TrayIcon(threading.Thread):
     def exit_app():
         global cycle
         cycle = False
-        loop.stop()
     # Exits the application.
 
     def main_function(self):
@@ -219,14 +203,11 @@ class TrayIcon(threading.Thread):
 
 
 if __name__ == '__main__':
-    loop = asyncio.get_event_loop()
-
     tray = TrayIcon()
     tray.start()
 
     try:
-        main(loop)
-        loop.run_forever()
+        main()
     except SystemExit:
         pass
     except BaseException as e:
