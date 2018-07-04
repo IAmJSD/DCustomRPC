@@ -1,7 +1,6 @@
 language: python
-sudo: true
 cache: pip
-dist: BionicBeaver
+dist: xenial
 python:
   - '3.6'
   - '3.7'
