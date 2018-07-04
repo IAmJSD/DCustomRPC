@@ -15,16 +15,6 @@ class ConfigNotFound(Exception):
 # The config not found exception.
 
 
-class NothingToDoHere(Exception):
-    pass
-# I have nothing to do here!
-
-
-class GamesNotFound(Exception):
-    pass
-# The Games were not found.
-
-
 class ConfigOpenError(Exception):
     pass
 # The exception when the config cannot be opened.
@@ -83,10 +73,7 @@ root = os.path.dirname(os.path.abspath(__file__))
 
 
 async def game_cycle_loop(game_cycle, client, loop):
-    try:
-        games = game_cycle["games"]
-    except KeyError:
-        raise GamesNotFound("Games not found in the config.")
+    games = game_cycle["games"]
     try:
         time_until_cycle = game_cycle["time_until_cycle"]
     except KeyError:
@@ -129,10 +116,15 @@ def main(loop):
         logger.info("Found a list of games to cycle.")
         cycle = True
     except AttributeError:
-        game_cycle = None
-
-    if not game_cycle:
-        raise NothingToDoHere("I have nothing to do here!")
+        game_cycle = {
+            "time_until_cycle": 10,
+            "games": [
+                {
+                    "state": "No cycle found.",
+                    "details": "Nothing to cycle."
+                }
+            ]
+        }
 
     client = pypresence.Presence(
         client_id,
