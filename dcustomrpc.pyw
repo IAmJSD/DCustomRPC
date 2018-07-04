@@ -1,28 +1,36 @@
-import asyncio
+import time
 import pypresence
 import yaml
 import os
+import sys
 import logging
+import threading
+import webbrowser
+import requests
+from io import StringIO
 # Imports go here.
 
+try:
+    import tkinter as tk
+    from tkinter import messagebox
+except ImportError:
+    pass
+# Imports tkinter if it can.
 
-cycle = False
+try:
+    import pystray
+    from PIL import Image
+except ImportError:
+    pass
+# Tries to import PIL and pystray.
+
+cycle = True
 # Sets whether we are cycling games.
 
 
 class ConfigNotFound(Exception):
     pass
 # The config not found exception.
-
-
-class NothingToDoHere(Exception):
-    pass
-# I have nothing to do here!
-
-
-class GamesNotFound(Exception):
-    pass
-# The Games were not found.
 
 
 class ConfigOpenError(Exception):
@@ -37,7 +45,8 @@ class ClientIDNotProvided(Exception):
 
 def dict2class(_dict: dict):
     class DictBasedClass:
-        pass
+        def __getattribute__(self, item):
+            self.__getattr__(item)
 
     for key in _dict:
         setattr(DictBasedClass, key, _dict[key])
@@ -81,35 +90,48 @@ root = os.path.dirname(os.path.abspath(__file__))
 # The root folder for DCustomRPC.
 
 
-async def game_cycle_loop(game_cycle, client, loop):
+def try_show_error_box(exception):
     try:
-        games = game_cycle["games"]
-    except KeyError:
-        raise GamesNotFound("Games not found in the config.")
-    try:
-        time_until_cycle = game_cycle["time_until_cycle"]
-    except KeyError:
-        time_until_cycle = 10
-    while cycle:
-        for game in games:
-
-            def blocking_wrap():
-                client.update(**game)
-
-            try:
-                await loop.run_in_executor(
-                    None,
-                    blocking_wrap
-                )
-                logger.info("Changed the game.")
-                await asyncio.sleep(time_until_cycle)
-            except TypeError:
-                logger.error("The game is formatted wrong.")
-# Runs the game cycle loop.
+        root = tk.Tk()
+        root.withdraw()
+        messagebox.showerror(
+            "DCustomRPC", "{}".format(exception))
+    except BaseException:
+        pass
+# Tries to show a error.
 
 
-def main(loop):
-    logging.basicConfig(level=logging.INFO)
+def listening_sleeper(_time):
+    global cycle
+    ticks = _time / 0.1
+    count = 0
+    while cycle and count != ticks:
+        try:
+            time.sleep(0.1)
+            count += 1
+        except KeyboardInterrupt:
+            cycle = False
+            return
+# Listens and sleeps.
+
+
+log_stream = StringIO()
+# The stream of the logger.
+
+
+def main():
+    logging.basicConfig(
+        level=logging.INFO
+    )
+
+    formatting = logging.Formatter(
+        "%(levelname)s:%(name)s:%(message)s"
+    )
+
+    log = logging.StreamHandler(log_stream)
+    log.setLevel(logging.INFO)
+    log.setFormatter(formatting)
+    logger.addHandler(log)
 
     logger.info("Loading the config.")
     config = load_config(root + "/config.yaml")
@@ -121,17 +143,19 @@ def main(loop):
             "No client ID was provided in the config."
         )
 
-    global cycle
-
     try:
         game_cycle = config.game_cycle
         logger.info("Found a list of games to cycle.")
-        cycle = True
     except AttributeError:
-        game_cycle = None
-
-    if not game_cycle:
-        raise NothingToDoHere("I have nothing to do here!")
+        game_cycle = {
+            "time_until_cycle": 10,
+            "games": [
+                {
+                    "state": "No cycle found.",
+                    "details": "Nothing to cycle."
+                }
+            ]
+        }
 
     client = pypresence.Presence(
         client_id,
@@ -141,16 +165,115 @@ def main(loop):
     logger.info("Connecting the client.")
     client.connect()
 
-    if game_cycle:
-        loop.create_task(
-            game_cycle_loop(game_cycle, client, loop)
-        )
-        logger.info("Created the game cycle task.")
+    try:
+        games = game_cycle.get("games", [
+                {
+                    "state": "No cycle found.",
+                    "details": "Nothing to cycle."
+                }
+        ])
+        time_until_cycle = game_cycle.get(
+            "time_until_cycle", 10)
+        while cycle:
+            for game in games:
+                if not cycle:
+                    break
+
+                try:
+                    client.update(**game)
+                    logger.info("Changed the game.")
+                    listening_sleeper(time_until_cycle)
+                except TypeError:
+                    logger.error("The game is formatted wrong.")
+
+        client.close()
+    except BaseException as e:
+        try_show_error_box(e)
+        logger.exception(e)
+        sys.exit(1)
 # The main script that is executed.
 
 
+class TrayIcon(threading.Thread):
+    def __init__(self):
+        super().__init__()
+        self.daemon = True
+    # Initialises the thread.
+
+    @staticmethod
+    def exit_app():
+        global cycle
+        cycle = False
+    # Exits the application.
+
+    @staticmethod
+    def display_logs():
+        post = requests.post(
+            "https://hastebin.com/documents",
+            data=log_stream.getvalue()
+        )
+        webbrowser.open(
+            "https://hastebin.com/" +
+            post.json()["key"] + ".txt"
+        )
+    # Displays logs from the past 15 mins.
+
+    def main_function(self):
+        image = Image.open(root + "/logo.ico")
+
+        menu = pystray.Menu(
+            pystray.MenuItem(
+                "Exit", self.exit_app
+            ),
+            pystray.MenuItem(
+                "Show Logs", self.display_logs
+            )
+        )
+
+        tray_icon = pystray.Icon(
+            "DCustomRPC", image,
+            "DCustomRPC", menu
+        )
+
+        def setup(icon):
+            tray_icon.visible = True
+
+        tray_icon.run(setup)
+    # The main function.
+
+    def run(self):
+        try:
+            self.main_function()
+        except BaseException:
+            pass
+    # Tries to launch the task tray.
+
+
+def flush_log_every_15_mins():
+    while True:
+        time.sleep(900)
+        global log_stream
+        log_stream = StringIO()
+# Flushes the log every 15 mins.
+
+
 if __name__ == '__main__':
-    loop = asyncio.get_event_loop()
-    main(loop)
-    loop.run_forever()
+    tray = TrayIcon()
+    tray.start()
+
+    threading.Thread(
+        target=flush_log_every_15_mins,
+        daemon=True
+    ).start()
+
+    try:
+        main()
+    except SystemExit:
+        pass
+    except KeyboardInterrupt:
+        pass
+    except BaseException as e:
+        try_show_error_box(e)
+        logger.exception(e)
+        sys.exit(1)
 # Starts the script.
