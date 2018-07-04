@@ -92,9 +92,15 @@ def try_show_error_box(exception):
 
 async def game_cycle_loop(game_cycle, client, loop):
     try:
-        games = game_cycle["games"]
+        games = game_cycle.get("games", [
+                {
+                    "state": "No cycle found.",
+                    "details": "Nothing to cycle."
+                }
+        ])
         try:
-            time_until_cycle = game_cycle["time_until_cycle"]
+            time_until_cycle = game_cycle.get(
+                "time_until_cycle", 10)
         except KeyError:
             time_until_cycle = 10
         while cycle:
