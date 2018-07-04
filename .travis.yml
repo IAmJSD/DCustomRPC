@@ -1,6 +1,7 @@
 language: python
 sudo: false
 cache: pip
+dist: xenial
 python:
   - '3.6'
   - '3.7'
