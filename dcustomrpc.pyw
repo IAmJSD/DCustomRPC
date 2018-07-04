@@ -7,7 +7,7 @@ import logging
 # Imports go here.
 
 try:
-    import tkinter
+    import tkinter as tk
     from tkinter import messagebox
 except ImportError:
     pass
@@ -81,6 +81,8 @@ root = os.path.dirname(os.path.abspath(__file__))
 
 def try_show_error_box(exception):
     try:
+        root = tk.Tk()
+        root.withdraw()
         messagebox.showerror(
             "DCustomRPC", "{}".format(exception))
     except BaseException:
