@@ -4,6 +4,7 @@ import yaml
 import os
 import sys
 import logging
+import threading
 # Imports go here.
 
 try:
@@ -12,6 +13,13 @@ try:
 except ImportError:
     pass
 # Imports tkinter if it can.
+
+try:
+    import pystray
+    from PIL import Image
+except ImportError:
+    pass
+# Tries to import PIL and pystray.
 
 cycle = False
 # Sets whether we are cycling games.
@@ -161,17 +169,62 @@ def main(loop):
     logger.info("Connecting the client.")
     client.connect()
 
-    if game_cycle:
-        loop.create_task(
-            game_cycle_loop(game_cycle, client, loop)
-        )
-        logger.info("Created the game cycle task.")
+    loop.create_task(
+        game_cycle_loop(game_cycle, client, loop)
+    )
+    logger.info("Created the game cycle task.")
 # The main script that is executed.
 
 
+class TrayIcon(threading.Thread):
+    def __init__(self):
+        super().__init__()
+        self.daemon = True
+    # Initialises the thread.
+
+    @staticmethod
+    def exit_app():
+        global cycle
+        cycle = False
+        loop.stop()
+    # Exits the application.
+
+    def main_function(self):
+        image = Image.open(root + "/logo.ico")
+
+        menu = pystray.Menu(
+            pystray.MenuItem(
+                "Exit", self.exit_app,
+                default=True
+            )
+        )
+
+        tray_icon = pystray.Icon(
+            "DCustomRPC", image,
+            "DCustomRPC", menu
+        )
+
+        def setup(icon):
+            tray_icon.visible = True
+
+        tray_icon.run(setup)
+    # The main function.
+
+    def run(self):
+        try:
+            self.main_function()
+        except BaseException:
+            pass
+    # Tries to launch the task tray.
+
+
 if __name__ == '__main__':
+    loop = asyncio.get_event_loop()
+
+    tray = TrayIcon()
+    tray.start()
+
     try:
-        loop = asyncio.get_event_loop()
         main(loop)
         loop.run_forever()
     except SystemExit:

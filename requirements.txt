@@ -1,2 +1,4 @@
 pypresence
 pyyaml
+pillow
+pystray
