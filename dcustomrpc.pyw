@@ -253,6 +253,7 @@ def flush_log_every_15_mins():
     while True:
         time.sleep(900)
         log_stream.truncate(0)
+        log_stream.seek(0)
 # Flushes the log every 15 mins.
 
 
