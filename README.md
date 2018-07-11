@@ -1,3 +1,4 @@
+[![Discord](https://img.shields.io/discord/459760634024820736.svg)](https://discord.gg/gx5xc5j)
 [![Build Status](https://travis-ci.org/JakeMakesStuff/DCustomRPC.svg?branch=master)](https://travis-ci.org/JakeMakesStuff/DCustomRPC)
 
 # DCustomRPC: The Rewrite!
