@@ -6,7 +6,7 @@ jobs:
     steps:
       - checkout
       - run: pip install --user -r requirements.txt
-      - run: pip install pycodestyle
+      - run: pip install --user pycodestyle
       - run: pycodestyle .
       - run: python -c "import ruamel.yaml; ruamel.yaml.load(open('config.yaml', 'r'), Loader=ruamel.yaml.Loader)"
   build:
@@ -15,6 +15,6 @@ jobs:
     steps:
       - checkout
       - run: pip install --user -r requirements.txt
-      - run: pip install pycodestyle
+      - run: pip install --user pycodestyle
       - run: pycodestyle .
       - run: python -c "import ruamel.yaml; ruamel.yaml.load(open('config.yaml', 'r'), Loader=ruamel.yaml.Loader)"
