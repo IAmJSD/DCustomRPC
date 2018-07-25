@@ -1,6 +1,6 @@
 import time
 import pypresence
-import yaml
+import ruamel.yaml
 import os
 import sys
 import logging
@@ -63,9 +63,9 @@ def load_config(config_location: str):
         )
 
     try:
-        with open(config_location, "r") as file_stream:
-            loaded_file = yaml.load(file_stream)
-    except yaml.YAMLError:
+        with open(config_location, "r", encoding="utf8") as file_stream:
+            loaded_file = ruamel.yaml.load(file_stream)
+    except ruamel.yaml.YAMLError:
         raise ConfigOpenError(
             "The YAML config seems to be malformed."
         )
