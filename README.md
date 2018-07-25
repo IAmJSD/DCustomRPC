@@ -36,7 +36,7 @@ The config should be fairly easy to setup:
         ![sm_text](https://i.imgur.com/EApOnTl.png)
 
 ## Useful Links
-[Python 3.6.5](https://www.python.org/downloads/release/python-365/) 
+[Python 3.6.6](https://www.python.org/downloads/release/python-366/) 
 
 [Repo Download: Stable](https://github.com/JakeMakesStuff/DCustomRPC/archive/master.zip) 
 
