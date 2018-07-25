@@ -64,7 +64,7 @@ def load_config(config_location: str):
 
     try:
         with open(config_location, "r", encoding="utf8") as file_stream:
-            loaded_file = ruamel.yaml.load(file_stream)
+            loaded_file = ruamel.yaml.load(file_stream, Loader=ruamel.yaml.Loader)
     except ruamel.yaml.YAMLError:
         raise ConfigOpenError(
             "The YAML config seems to be malformed."
