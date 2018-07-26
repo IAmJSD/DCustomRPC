@@ -6,6 +6,7 @@ jobs:
     steps:
       - checkout
       - run: python -V
+      - run: sudo apt update && sudo apt install -y libyaml-dev python-dev python3-dev
       - run: sudo pip install --upgrade pip Cython
       - run: sudo pip install -r requirements.txt
       - run: sudo pip install pycodestyle
