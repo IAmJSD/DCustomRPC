@@ -6,11 +6,8 @@ jobs:
     steps:
       - checkout
       - run: python -V
-      - run: sudo pip install Cython
-      - run: sudo pip install -r requirements.txt
-      - run: sudo pip install pycodestyle
+      - run: sudo pip install pypresence pillow pystray requests
       - run: pycodestyle .
-      - run: python -c "import ruamel.yaml; ruamel.yaml.load(open('config.yaml', 'r'), Loader=ruamel.yaml.Loader)"
   two:
     docker:
       - image: circleci/python:3.6-stretch-browsers
