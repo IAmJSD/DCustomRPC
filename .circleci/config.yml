@@ -6,7 +6,7 @@ jobs:
     steps:
       - checkout
       - run: sudo apt update
-      - run: sudo apt install -y libyaml-dev
+      - run: sudo apt install -y libyaml-dev python3.7-dev
       - run: pip install --user -r requirements.txt
       - run: pip install --user pycodestyle
       - run: python -m pycodestyle .
