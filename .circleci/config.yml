@@ -6,11 +6,11 @@ jobs:
     steps:
       - checkout
       - run: sudo apt update
-      - run: sudo apt install -y libyaml-dev python3.7-dev
-      - run: pip install --user -r requirements.txt
+      - run: sudo apt install -y libyaml-dev python3-dev python-dev
+      - run: sudo python3.6 -m pip install -r requirements.txt
       - run: pip install --user pycodestyle
-      - run: python -m pycodestyle .
-      - run: python -c "import ruamel.yaml; ruamel.yaml.load(open('config.yaml', 'r'), Loader=ruamel.yaml.Loader)"
+      - run: sudo python3.6 -m pycodestyle .
+      - run: python3.6 -c "import ruamel.yaml; ruamel.yaml.load(open('config.yaml', 'r'), Loader=ruamel.yaml.Loader)"
   two:
     docker:
       - image: circleci/python:3.6-stretch-browsers
