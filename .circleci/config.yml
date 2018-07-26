@@ -5,8 +5,8 @@ jobs:
       - image: circleci/python:3.7.0-stretch-browsers
     steps:
       - checkout
-      - run: apt update
-      - run: apt install -y libyaml-dev
+      - run: sudo apt update
+      - run: sudo apt install -y libyaml-dev
       - run: pip install --user -r requirements.txt
       - run: pip install --user pycodestyle
       - run: python -m pycodestyle .
