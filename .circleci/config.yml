@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  one:
     docker:
       - image: circleci/python:3.7.0-stretch-browsers
     steps:
@@ -9,7 +9,7 @@ jobs:
       - run: pip install --user pycodestyle
       - run: python -m pycodestyle .
       - run: python -c "import ruamel.yaml; ruamel.yaml.load(open('config.yaml', 'r'), Loader=ruamel.yaml.Loader)"
-  build:
+  two:
     docker:
       - image: circleci/python:3.6-stretch-browsers
     steps:
@@ -18,3 +18,10 @@ jobs:
       - run: pip install --user pycodestyle
       - run: python -m pycodestyle .
       - run: python -c "import ruamel.yaml; ruamel.yaml.load(open('config.yaml', 'r'), Loader=ruamel.yaml.Loader)"
+
+workflows:
+  version: 2
+  one_and_two:
+  jobs:
+    - one
+    - two
