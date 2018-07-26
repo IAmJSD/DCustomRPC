@@ -7,6 +7,8 @@ jobs:
       - checkout
       - run: pip install --user -r requirements.txt
       - run: pip install --user pycodestyle
+      - run: apt update
+      - run: apt install -y libyaml-dev
       - run: python -m pycodestyle .
       - run: python -c "import ruamel.yaml; ruamel.yaml.load(open('config.yaml', 'r'), Loader=ruamel.yaml.Loader)"
   two:
