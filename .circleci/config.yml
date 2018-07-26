@@ -18,9 +18,9 @@ jobs:
     steps:
       - checkout
       - run: python -V
-      - run: pip install --user -r requirements.txt
-      - run: pip install --user pycodestyle
-      - run: python -m pycodestyle .
+      - run: sudo pip install -r requirements.txt
+      - run: sudo pip install pycodestyle
+      - run: pycodestyle .
       - run: python -c "import ruamel.yaml; ruamel.yaml.load(open('config.yaml', 'r'), Loader=ruamel.yaml.Loader)"
 
 workflows:
